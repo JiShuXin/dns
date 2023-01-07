@@ -1,14 +1,24 @@
-export function helloWorld() {
-  const message = 'Hello World from my example modern npm package!';
-  return message;
+import { pinyin } from 'pinyin-pro';
+import * as dns from "dns";
+import { SrvRecord } from "dns";
+
+export function translate(hostname: string): string {
+    return pinyin(hostname, {
+        type: 'array',
+        toneType: 'none',
+    }).join('');
 }
 
-export function goodBye() {
-  const message = 'Goodbye from my example modern npm package!';
-  return message;
+export function resolveSrv(hostname: string, callback: (error: NodeJS.ErrnoException | null, addresses: SrvRecord[]) => void): void {
+    dns.resolveSrv(
+        translate(hostname), callback
+    );
 }
 
-export default {
-  helloWorld,
-  goodBye,
-};
+export namespace resolveSrv {
+    function __promisify__(hostname: string): Promise<SrvRecord[]> {
+        return dns.resolveSrv.__promisify__(
+            translate(hostname)
+        );
+    }
+}

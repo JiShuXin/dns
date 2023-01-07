@@ -1,39 +1,17 @@
 import 'mocha';
 import { assert } from 'chai';
 
-import { helloWorld, goodBye } from '../index';
-import npmPackage from '../index';
+import { translate } from '../src';
 
-describe('NPM Package', () => {
-  it('should be an object', () => {
-    assert.isObject(npmPackage);
-  });
-
-  it('should have a helloWorld property', () => {
-    assert.property(npmPackage, 'helloWorld');
-  });
-});
-
-describe('Hello World Function', () => {
+describe('Translate Function', () => {
   it('should be a function', () => {
-    assert.isFunction(helloWorld);
+    assert.isFunction(translate);
   });
 
-  it('should return the hello world message', () => {
-    const expected = 'Hello World from my example modern npm package!';
-    const actual = helloWorld();
-    assert.equal(actual, expected);
-  });
-});
+  it('should return the domain: shu.xin', () => {
+    const expected = 'shu.xin';
+    const actual = translate('舒.心');
 
-describe('Goodbye Function', () => {
-  it('should be a function', () => {
-    assert.isFunction(goodBye);
-  });
-
-  it('should return the goodbye message', () => {
-    const expected = 'Goodbye from my example modern npm package!';
-    const actual = goodBye();
     assert.equal(actual, expected);
   });
 });
